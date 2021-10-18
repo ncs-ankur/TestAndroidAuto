@@ -1,15 +1,20 @@
 package com.example.testandroidauto
 
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import com.example.sharedmodule.*
+import com.example.sharedmodule.RxEvent.postEvent
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : BaseActivity() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        //postEvent(ShowHomeScreen())
-        //addHomeFragment()
+    }
+
+    override fun onStart() {
+        super.onStart()
+        postEvent(ShowHomeScreen())
     }
 
     private fun addHomeFragment() {
@@ -45,5 +50,31 @@ class MainActivity : AppCompatActivity() {
             .add(R.id.container, fragment)
             .addToBackStack(fragment.javaClass.name)
             .commit()
+    }
+
+    override fun onEventFromCar(event: TestEvent) {
+        super.onEventFromCar(event)
+        when (event) {
+            is ShowHomeScreen -> {
+                addHomeFragment()
+            }
+
+            is ShowSearch -> {
+                addSearchFragment()
+            }
+
+            is ShowRoutePlanning -> {
+                addRoutePlanningFragment()
+            }
+
+            is StartCruiseMode -> {
+                addCruiseModeFragment()
+            }
+
+            is StartNavigation -> {
+                addNavigationFragment()
+            }
+        }
+
     }
 }

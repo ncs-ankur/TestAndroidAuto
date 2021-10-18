@@ -2,6 +2,9 @@ package com.example.testandroidauto
 
 import android.os.Bundle
 import android.widget.Toast
+import com.example.sharedmodule.RxEvent
+import com.example.sharedmodule.ShowHomeScreen
+import com.example.sharedmodule.ShowRoutePlanning
 
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
@@ -19,7 +22,7 @@ class FragmentHome : BaseFragment() {
     }
 
     override fun doAction() {
-        Toast.makeText(requireContext(), "Action performed", Toast.LENGTH_SHORT).show()
+        RxEvent.postEvent(ShowRoutePlanning())
     }
 
     override fun getTitle(): String {
