@@ -2,6 +2,7 @@ package com.example.testandroidauto
 
 import android.os.Bundle
 import android.widget.Toast
+import com.example.sharedmodule.*
 
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
@@ -18,8 +19,20 @@ class FragmentRoutePlanning : BaseFragment() {
         }
     }
 
-    override fun doAction() {
-        Toast.makeText(requireContext(), "Action performed", Toast.LENGTH_SHORT).show()
+    override fun getActionTitle1(): String? {
+        return "Start Navigation"
+    }
+
+    override fun getActionTitle2(): String? {
+        return "Cancel"
+    }
+
+    override fun doAction1() {
+        RxEvent.postEvent(StartNavigation())
+    }
+
+    override fun doAction2() {
+        RxEvent.postEvent(CancelRoutePlanning())
     }
 
     override fun getTitle(): String {

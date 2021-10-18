@@ -8,6 +8,9 @@ import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import com.example.sharedmodule.RxEvent
+import com.example.sharedmodule.StartCruiseMode
+import com.example.sharedmodule.StopCruiseMode
 
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
@@ -24,12 +27,16 @@ class FragmentCruiseMode : BaseFragment() {
         }
     }
 
-    override fun doAction() {
-        Toast.makeText(requireContext(), "Action performed", Toast.LENGTH_SHORT).show()
+    override fun doAction1() {
+        RxEvent.postEvent(StopCruiseMode())
     }
 
     override fun getTitle(): String {
         return "CRUISE MODE"
+    }
+
+    override fun getActionTitle1(): String? {
+        return "End Cruise Mode"
     }
 
     override fun getIcon(): Int {

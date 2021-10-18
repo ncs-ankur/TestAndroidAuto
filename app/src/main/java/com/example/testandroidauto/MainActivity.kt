@@ -17,7 +17,14 @@ class MainActivity : BaseActivity() {
         postEvent(ShowHomeScreen())
     }
 
+    protected fun popAllFragments() {
+        for (i in 0 until supportFragmentManager.getBackStackEntryCount()) {
+            supportFragmentManager.popBackStack()
+        }
+    }
+
     private fun addHomeFragment() {
+        popAllFragments()
         replaceFragment(FragmentHome.newInstance("", ""))
     }
 
@@ -63,16 +70,32 @@ class MainActivity : BaseActivity() {
                 addSearchFragment()
             }
 
+            is CancelSearch -> {
+                addHomeFragment()
+            }
+
             is ShowRoutePlanning -> {
                 addRoutePlanningFragment()
+            }
+
+            is CancelRoutePlanning -> {
+                addHomeFragment()
             }
 
             is StartCruiseMode -> {
                 addCruiseModeFragment()
             }
 
+            is StopCruiseMode -> {
+                addHomeFragment()
+            }
+
             is StartNavigation -> {
                 addNavigationFragment()
+            }
+
+            is StopNavigation -> {
+                addHomeFragment()
             }
         }
 

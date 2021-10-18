@@ -5,6 +5,7 @@ import android.widget.Toast
 import com.example.sharedmodule.RxEvent
 import com.example.sharedmodule.ShowHomeScreen
 import com.example.sharedmodule.ShowRoutePlanning
+import com.example.sharedmodule.StartCruiseMode
 
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
@@ -21,8 +22,20 @@ class FragmentHome : BaseFragment() {
         }
     }
 
-    override fun doAction() {
+    override fun getActionTitle1(): String? {
+        return "Route Planning"
+    }
+
+    override fun getActionTitle2(): String? {
+        return "Cruise Mode"
+    }
+
+    override fun doAction1() {
         RxEvent.postEvent(ShowRoutePlanning())
+    }
+
+    override fun doAction2() {
+        RxEvent.postEvent(StartCruiseMode())
     }
 
     override fun getTitle(): String {

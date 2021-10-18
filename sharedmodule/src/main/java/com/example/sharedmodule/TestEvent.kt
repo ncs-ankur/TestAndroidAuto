@@ -18,9 +18,13 @@ object RxEvent {
 
 class ShowHomeScreen() : TestEvent()
 class ShowSearch() : TestEvent()
+class CancelSearch() : TestEvent()
 class ShowRoutePlanning() : TestEvent()
+class CancelRoutePlanning() : TestEvent()
 class StartCruiseMode() : TestEvent()
+class StopCruiseMode() : TestEvent()
 class StartNavigation() : TestEvent()
+class StopNavigation() : TestEvent()
 
 
 
