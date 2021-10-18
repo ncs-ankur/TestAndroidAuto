@@ -1,10 +1,8 @@
 package com.example.testandroidauto
 
 import android.os.Bundle
-import android.widget.Toast
 import com.example.sharedmodule.CancelSearch
 import com.example.sharedmodule.RxEvent
-import com.example.sharedmodule.StartNavigation
 
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
