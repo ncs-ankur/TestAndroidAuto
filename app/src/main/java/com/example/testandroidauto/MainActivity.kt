@@ -1,9 +1,12 @@
 package com.example.testandroidauto
 
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import androidx.fragment.app.Fragment
 import com.example.sharedmodule.*
 import com.example.sharedmodule.RxEvent.postEvent
+
 
 class MainActivity : BaseActivity() {
 
@@ -17,7 +20,20 @@ class MainActivity : BaseActivity() {
         postEvent(ShowHomeScreen())
     }
 
-    protected fun popAllFragments() {
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.main, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (item.itemId == R.id.search) {
+            postEvent(ShowSearch())
+            return true
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
+    private fun popAllFragments() {
         for (i in 0 until supportFragmentManager.getBackStackEntryCount()) {
             supportFragmentManager.popBackStack()
         }
