@@ -10,7 +10,9 @@
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.39166666666666666" />
         <entry key="app/src/main/res/layout/fragment_cruise_mode.xml" value="0.39166666666666666" />
         <entry key="app/src/main/res/layout/fragment_home.xml" value="0.39166666666666666" />
+        <entry key="app/src/main/res/layout/item_stack.xml" value="0.39166666666666666" />
         <entry key="app/src/main/res/menu/main.xml" value="0.39166666666666666" />
+        <entry key="car_app/src/main/res/drawable/ic_vc_cruise.xml" value="0.23981481481481481" />
       </map>
     </option>
   </component>
