@@ -44,7 +44,7 @@ abstract class BaseFragment : Fragment() {
         return rootView
     }
 
-    protected abstract fun getTitle(): String
+    public abstract fun getTitle(): String
     protected abstract fun getIcon(): Int
 
     protected open fun doAction1() {}

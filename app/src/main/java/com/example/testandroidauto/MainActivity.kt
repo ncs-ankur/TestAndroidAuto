@@ -4,15 +4,23 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.RecyclerView
 import com.example.sharedmodule.*
 import com.example.sharedmodule.RxEvent.postEvent
 
 
 class MainActivity : BaseActivity() {
 
+    lateinit var adapter: StackAdapter
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        initBackStack()
+
+        adapter = StackAdapter(ArrayList())
+        findViewById<RecyclerView>(R.id.list_stack).adapter = adapter
     }
 
     override fun onStart() {
@@ -33,9 +41,34 @@ class MainActivity : BaseActivity() {
         return super.onOptionsItemSelected(item)
     }
 
+    private fun initBackStack() {
+        supportFragmentManager.addOnBackStackChangedListener {
+            val stackItems = ArrayList<String>()
+            for (fragment in supportFragmentManager.fragments) {
+                stackItems.add(getFragmentTitle(fragment))
+            }
+            adapter.updateItems(stackItems)
+        }
+    }
+
+    protected fun getFragmentTitle(fragment: Fragment): String {
+        if (fragment is BaseFragment) {
+            return fragment.getTitle()
+        } else {
+            return fragment.javaClass.name
+        }
+    }
+
     private fun popAllFragments() {
         for (i in 0 until supportFragmentManager.getBackStackEntryCount()) {
             supportFragmentManager.popBackStack()
+        }
+    }
+
+    private fun popTopFragments() {
+        for (i in 0 until supportFragmentManager.getBackStackEntryCount()) {
+            supportFragmentManager.popBackStack()
+            break
         }
     }
 
@@ -45,25 +78,26 @@ class MainActivity : BaseActivity() {
     }
 
     private fun addCruiseModeFragment() {
-        replaceFragment(FragmentCruiseMode.newInstance("", ""))
+        addFragment(FragmentCruiseMode.newInstance("", ""))
     }
 
     private fun addRoutePlanningFragment() {
-        replaceFragment(FragmentRoutePlanning.newInstance("", ""))
+        addFragment(FragmentRoutePlanning.newInstance("", ""))
     }
 
     private fun addNavigationFragment() {
-        replaceFragment(FragmentNavigation.newInstance("", ""))
+        addFragment(FragmentNavigation.newInstance("", ""))
     }
 
     private fun addSearchFragment() {
-        replaceFragment(FragmentSearch.newInstance("", ""))
+        addFragment(FragmentSearch.newInstance("", ""))
     }
 
     private fun replaceFragment(fragment: Fragment) {
         supportFragmentManager
             .beginTransaction()
             .replace(R.id.container, fragment)
+            .addToBackStack(fragment.javaClass.name)
             .commit()
     }
 
@@ -87,7 +121,7 @@ class MainActivity : BaseActivity() {
             }
 
             is CancelSearch -> {
-                addHomeFragment()
+                popTopFragments()
             }
 
             is ShowRoutePlanning -> {
